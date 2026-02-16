@@ -264,46 +264,83 @@
                     <div class="benefit"><span>✓</span> Aplicativo Exclusivo</div>
                 </div>
                 
-                <!-- CARROSSEL ANTES/DEPOIS - VERSÃO 2: INLINE -->
+                <!-- CARROSSEL ANTES/DEPOIS - VERSÃO 1: MODAL -->
                 <div class="carousel-container">
                     <div class="carousel-title">📸 RESULTADOS REAIS VERIFICADOS</div>
                     <div style="text-align: center; color: #00ff00; font-size: 13px; font-weight: 700; margin-bottom: 15px;">
-                        👆 TOQUE NA IMAGEM PARA VER
+                        ⚠️ 3 RESULTADOS DISPONÍVEIS - Clique para ver
                     </div>
                     <div class="carousel" id="results-carousel">
                         <div class="slide active">
-                            <div class="blurred-container" onclick="toggleBlur(1)">
-                                <img id="img-1" src="https://i.ibb.co/YFjPy3zS/mea-Saa-Tba-Aaaaamh-D-i-LJzfk9u2-QO-ZC1.jpg" alt="Resultado verificado" style="filter: blur(20px);">
-                                <div class="click-overlay" id="overlay-1">
-                                    <div class="click-icon">👆</div>
-                                    <div class="click-text">Toque para revelar</div>
+                            <div class="blurred-container" onclick="openModal(1)">
+                                <img src="https://i.ibb.co/YFjPy3zS/mea-Saa-Tba-Aaaaamh-D-i-LJzfk9u2-QO-ZC1.jpg" alt="Resultado verificado">
+                                <div class="click-overlay">
+                                    <div class="click-icon">🔍</div>
+                                    <div class="click-text">Clique para ver</div>
                                 </div>
                             </div>
                             <div class="slide-caption">PACIENTE M. SOUZA: +5.8cm CONFIRMADO</div>
                         </div>
                         <div class="slide">
-                            <div class="blurred-container" onclick="toggleBlur(2)">
-                                <img id="img-2" src="https://i.ibb.co/v6cyDsyd/55db78-0079baf30d6c485581fa2291d62c7d25-mv2.avif" alt="Resultado verificado" style="filter: blur(20px);">
-                                <div class="click-overlay" id="overlay-2">
-                                    <div class="click-icon">👆</div>
-                                    <div class="click-text">Toque para revelar</div>
+                            <div class="blurred-container" onclick="openModal(2)">
+                                <img src="https://i.ibb.co/v6cyDsyd/55db78-0079baf30d6c485581fa2291d62c7d25-mv2.avif" alt="Resultado verificado">
+                                <div class="click-overlay">
+                                    <div class="click-icon">🔍</div>
+                                    <div class="click-text">Clique para ver</div>
                                 </div>
                             </div>
                             <div class="slide-caption">PACIENTE R. OLIVEIRA: +4.9cm CONFIRMADO</div>
                         </div>
                         <div class="slide">
-                            <div class="blurred-container" onclick="toggleBlur(3)">
-                                <img id="img-3" src="https://i.ibb.co/JRStgT6L/Whats-App-Image-2024-12-18-at-15-11-46-rcl53qv1p0gr5s3fzr30gvvchnyybvpbhth13gqhj4.jpg" alt="Resultado verificado" style="filter: blur(20px);">
-                                <div class="click-overlay" id="overlay-3">
-                                    <div class="click-icon">👆</div>
-                                    <div class="click-text">Toque para revelar</div>
+                            <div class="blurred-container" onclick="openModal(3)">
+                                <img src="https://i.ibb.co/JRStgT6L/Whats-App-Image-2024-12-18-at-15-11-46-rcl53qv1p0gr5s3fzr30gvvchnyybvpbhth13gqhj4.jpg" alt="Resultado verificado">
+                                <div class="click-overlay">
+                                    <div class="click-icon">🔍</div>
+                                    <div class="click-text">Clique para ver</div>
                                 </div>
                             </div>
                             <div class="slide-caption">PACIENTE L. SANTOS: +6.2cm CONFIRMADO</div>
                         </div>
                     </div>
-                    <div style="text-align: center; color: #666; font-size: 11px; margin-top: 10px;">
-                        💡 Toque novamente para borrar
+                </div>
+                
+                <!-- Modals -->
+                <div class="image-modal" id="modal-1">
+                    <div class="modal-content">
+                        <span class="modal-close" onclick="closeModal(1)">×</span>
+                        <img class="modal-image" src="https://i.ibb.co/YFjPy3zS/mea-Saa-Tba-Aaaaamh-D-i-LJzfk9u2-QO-ZC1.jpg" alt="Resultado completo">
+                        <div class="modal-info">
+                            <strong>Paciente M. Souza</strong>
+                            Aumentou 5.8cm em 42 dias usando o método<br>
+                            ANTES: 12cm | DEPOIS: 17.8cm
+                            <div class="modal-verified">✓ RESULTADO VERIFICADO</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-modal" id="modal-2">
+                    <div class="modal-content">
+                        <span class="modal-close" onclick="closeModal(2)">×</span>
+                        <img class="modal-image" src="https://i.ibb.co/v6cyDsyd/55db78-0079baf30d6c485581fa2291d62c7d25-mv2.avif" alt="Resultado completo">
+                        <div class="modal-info">
+                            <strong>Paciente R. Oliveira</strong>
+                            Aumentou 4.9cm em 38 dias usando o método<br>
+                            ANTES: 13cm | DEPOIS: 17.9cm
+                            <div class="modal-verified">✓ RESULTADO VERIFICADO</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-modal" id="modal-3">
+                    <div class="modal-content">
+                        <span class="modal-close" onclick="closeModal(3)">×</span>
+                        <img class="modal-image" src="https://i.ibb.co/JRStgT6L/Whats-App-Image-2024-12-18-at-15-11-46-rcl53qv1p0gr5s3fzr30gvvchnyybvpbhth13gqhj4.jpg" alt="Resultado completo">
+                        <div class="modal-info">
+                            <strong>Paciente L. Santos</strong>
+                            Aumentou 6.2cm em 51 dias usando o método<br>
+                            ANTES: 11cm | DEPOIS: 17.2cm
+                            <div class="modal-verified">✓ RESULTADO VERIFICADO</div>
+                        </div>
                     </div>
                 </div>
                 
@@ -582,24 +619,22 @@
             }, 2500); // 2.5 segundos - sweet spot entre rápido e visível
         }
 
-        // Função de Toggle Blur (Versão Inline)
-        window.toggleBlur = function(id) {
-            const img = document.getElementById('img-' + id);
-            const overlay = document.getElementById('overlay-' + id);
-            
-            if (img.style.filter === 'blur(20px)') {
-                // Desblurra
-                img.style.filter = 'blur(0px)';
-                img.style.transform = 'scale(1.05)';
-                overlay.style.display = 'none';
-                track('result_photo_viewed', { photoId: id, action: 'unblur' });
-            } else {
-                // Blurra novamente
-                img.style.filter = 'blur(20px)';
-                img.style.transform = 'scale(1)';
-                overlay.style.display = 'flex';
-            }
+        // Funções do Modal
+        window.openModal = function(id) {
+            document.getElementById('modal-' + id).classList.add('active');
+            track('result_photo_viewed', { photoId: id });
         };
+
+        window.closeModal = function(id) {
+            document.getElementById('modal-' + id).classList.remove('active');
+        };
+
+        // Fecha modal ao clicar fora
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('image-modal')) {
+                e.target.classList.remove('active');
+            }
+        });
 
         window.checkout = function() {
             track('checkout');
