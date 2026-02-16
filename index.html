@@ -99,13 +99,15 @@
         .blurred-container img { width: 100%; height: 100%; object-fit: contain; filter: blur(20px); transition: all 0.3s; }
         .blurred-container:hover img { filter: blur(15px); transform: scale(1.05); }
         
-        .click-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); transition: all 0.3s; }
+        .click-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); transition: opacity 0.3s ease; }
         .blurred-container:hover .click-overlay { background: rgba(0, 0, 0, 0.7); }
         
         .click-icon { font-size: 48px; margin-bottom: 10px; animation: pulseIcon 2s infinite; }
         @keyframes pulseIcon { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.15); opacity: 1; } }
         
         .click-text { color: #00ff00; font-size: 16px; font-weight: 900; text-transform: uppercase; text-align: center; text-shadow: 0 0 10px rgba(0, 255, 0, 0.5); letter-spacing: 1px; }
+        
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
         
         .slide-caption { position: absolute; bottom: 15px; left: 15px; right: 15px; background: rgba(0, 0, 0, 0.9); padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 900; color: #00ff00; border: 2px solid rgba(0, 255, 0, 0.5); text-align: center; z-index: 10; text-transform: uppercase; letter-spacing: 0.5px; }
         
@@ -264,83 +266,46 @@
                     <div class="benefit"><span>✓</span> Aplicativo Exclusivo</div>
                 </div>
                 
-                <!-- CARROSSEL ANTES/DEPOIS - VERSÃO 1: MODAL -->
+                <!-- CARROSSEL ANTES/DEPOIS - VERSÃO 2 MELHORADA: UM CLIQUE LIBERA TODAS -->
                 <div class="carousel-container">
                     <div class="carousel-title">📸 RESULTADOS REAIS VERIFICADOS</div>
-                    <div style="text-align: center; color: #00ff00; font-size: 13px; font-weight: 700; margin-bottom: 15px;">
-                        ⚠️ 3 RESULTADOS DISPONÍVEIS - Clique para ver
+                    <div id="unlock-message" style="text-align: center; color: #00ff00; font-size: 14px; font-weight: 900; margin-bottom: 15px; animation: pulse 2s infinite;">
+                        👆 TOQUE PARA DESBLOQUEAR AS 3 FOTOS
                     </div>
                     <div class="carousel" id="results-carousel">
                         <div class="slide active">
-                            <div class="blurred-container" onclick="openModal(1)">
-                                <img src="https://i.ibb.co/YFjPy3zS/mea-Saa-Tba-Aaaaamh-D-i-LJzfk9u2-QO-ZC1.jpg" alt="Resultado verificado">
-                                <div class="click-overlay">
-                                    <div class="click-icon">🔍</div>
-                                    <div class="click-text">Clique para ver</div>
+                            <div class="blurred-container" onclick="unlockAllPhotos()">
+                                <img class="carousel-img" src="https://i.ibb.co/YFjPy3zS/mea-Saa-Tba-Aaaaamh-D-i-LJzfk9u2-QO-ZC1.jpg" alt="Resultado verificado" style="filter: blur(20px); transition: filter 0.8s ease;">
+                                <div class="click-overlay unlock-overlay">
+                                    <div class="click-icon">🔓</div>
+                                    <div class="click-text">Toque para desbloquear</div>
                                 </div>
                             </div>
                             <div class="slide-caption">PACIENTE M. SOUZA: +5.8cm CONFIRMADO</div>
                         </div>
                         <div class="slide">
-                            <div class="blurred-container" onclick="openModal(2)">
-                                <img src="https://i.ibb.co/v6cyDsyd/55db78-0079baf30d6c485581fa2291d62c7d25-mv2.avif" alt="Resultado verificado">
-                                <div class="click-overlay">
-                                    <div class="click-icon">🔍</div>
-                                    <div class="click-text">Clique para ver</div>
+                            <div class="blurred-container" onclick="unlockAllPhotos()">
+                                <img class="carousel-img" src="https://i.ibb.co/v6cyDsyd/55db78-0079baf30d6c485581fa2291d62c7d25-mv2.avif" alt="Resultado verificado" style="filter: blur(20px); transition: filter 0.8s ease;">
+                                <div class="click-overlay unlock-overlay">
+                                    <div class="click-icon">🔓</div>
+                                    <div class="click-text">Toque para desbloquear</div>
                                 </div>
                             </div>
                             <div class="slide-caption">PACIENTE R. OLIVEIRA: +4.9cm CONFIRMADO</div>
                         </div>
                         <div class="slide">
-                            <div class="blurred-container" onclick="openModal(3)">
-                                <img src="https://i.ibb.co/JRStgT6L/Whats-App-Image-2024-12-18-at-15-11-46-rcl53qv1p0gr5s3fzr30gvvchnyybvpbhth13gqhj4.jpg" alt="Resultado verificado">
-                                <div class="click-overlay">
-                                    <div class="click-icon">🔍</div>
-                                    <div class="click-text">Clique para ver</div>
+                            <div class="blurred-container" onclick="unlockAllPhotos()">
+                                <img class="carousel-img" src="https://i.ibb.co/JRStgT6L/Whats-App-Image-2024-12-18-at-15-11-46-rcl53qv1p0gr5s3fzr30gvvchnyybvpbhth13gqhj4.jpg" alt="Resultado verificado" style="filter: blur(20px); transition: filter 0.8s ease;">
+                                <div class="click-overlay unlock-overlay">
+                                    <div class="click-icon">🔓</div>
+                                    <div class="click-text">Toque para desbloquear</div>
                                 </div>
                             </div>
                             <div class="slide-caption">PACIENTE L. SANTOS: +6.2cm CONFIRMADO</div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Modals -->
-                <div class="image-modal" id="modal-1">
-                    <div class="modal-content">
-                        <span class="modal-close" onclick="closeModal(1)">×</span>
-                        <img class="modal-image" src="https://i.ibb.co/YFjPy3zS/mea-Saa-Tba-Aaaaamh-D-i-LJzfk9u2-QO-ZC1.jpg" alt="Resultado completo">
-                        <div class="modal-info">
-                            <strong>Paciente M. Souza</strong>
-                            Aumentou 5.8cm em 42 dias usando o método<br>
-                            ANTES: 12cm | DEPOIS: 17.8cm
-                            <div class="modal-verified">✓ RESULTADO VERIFICADO</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-modal" id="modal-2">
-                    <div class="modal-content">
-                        <span class="modal-close" onclick="closeModal(2)">×</span>
-                        <img class="modal-image" src="https://i.ibb.co/v6cyDsyd/55db78-0079baf30d6c485581fa2291d62c7d25-mv2.avif" alt="Resultado completo">
-                        <div class="modal-info">
-                            <strong>Paciente R. Oliveira</strong>
-                            Aumentou 4.9cm em 38 dias usando o método<br>
-                            ANTES: 13cm | DEPOIS: 17.9cm
-                            <div class="modal-verified">✓ RESULTADO VERIFICADO</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-modal" id="modal-3">
-                    <div class="modal-content">
-                        <span class="modal-close" onclick="closeModal(3)">×</span>
-                        <img class="modal-image" src="https://i.ibb.co/JRStgT6L/Whats-App-Image-2024-12-18-at-15-11-46-rcl53qv1p0gr5s3fzr30gvvchnyybvpbhth13gqhj4.jpg" alt="Resultado completo">
-                        <div class="modal-info">
-                            <strong>Paciente L. Santos</strong>
-                            Aumentou 6.2cm em 51 dias usando o método<br>
-                            ANTES: 11cm | DEPOIS: 17.2cm
-                            <div class="modal-verified">✓ RESULTADO VERIFICADO</div>
-                        </div>
+                    <div id="unlocked-message" style="display: none; text-align: center; color: #00ff00; font-size: 12px; font-weight: 700; margin-top: 10px;">
+                        ✅ FOTOS DESBLOQUEADAS - Carrossel rodando
                     </div>
                 </div>
                 
@@ -619,22 +584,45 @@
             }, 2500); // 2.5 segundos - sweet spot entre rápido e visível
         }
 
-        // Funções do Modal
-        window.openModal = function(id) {
-            document.getElementById('modal-' + id).classList.add('active');
-            track('result_photo_viewed', { photoId: id });
+        // Função que DESBLOQUEIA TODAS as fotos com 1 clique
+        let photosUnlocked = false;
+        
+        window.unlockAllPhotos = function() {
+            if (photosUnlocked) return; // Já desbloqueou, não faz nada
+            
+            photosUnlocked = true;
+            
+            // Pega todas as imagens do carrossel
+            const allImages = document.querySelectorAll('.carousel-img');
+            const allOverlays = document.querySelectorAll('.unlock-overlay');
+            const unlockMessage = document.getElementById('unlock-message');
+            const unlockedMessage = document.getElementById('unlocked-message');
+            
+            // Remove blur de TODAS as fotos com animação
+            allImages.forEach((img, index) => {
+                setTimeout(() => {
+                    img.style.filter = 'blur(0px)';
+                    img.style.transform = 'scale(1.02)';
+                }, index * 200); // Efeito cascata suave
+            });
+            
+            // Esconde todos os overlays
+            allOverlays.forEach((overlay, index) => {
+                setTimeout(() => {
+                    overlay.style.opacity = '0';
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                    }, 300);
+                }, index * 200);
+            });
+            
+            // Atualiza mensagens
+            unlockMessage.style.display = 'none';
+            unlockedMessage.style.display = 'block';
+            
+            // Tracking
+            track('all_photos_unlocked', { timestamp: Date.now() });
         };
-
-        window.closeModal = function(id) {
-            document.getElementById('modal-' + id).classList.remove('active');
-        };
-
-        // Fecha modal ao clicar fora
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('image-modal')) {
-                e.target.classList.remove('active');
-            }
-        });
 
         window.checkout = function() {
             track('checkout');
