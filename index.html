@@ -99,15 +99,13 @@
         .blurred-container img { width: 100%; height: 100%; object-fit: contain; filter: blur(20px); transition: all 0.3s; }
         .blurred-container:hover img { filter: blur(15px); transform: scale(1.05); }
         
-        .click-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); transition: opacity 0.3s ease; }
+        .click-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); transition: all 0.3s; }
         .blurred-container:hover .click-overlay { background: rgba(0, 0, 0, 0.7); }
         
         .click-icon { font-size: 48px; margin-bottom: 10px; animation: pulseIcon 2s infinite; }
         @keyframes pulseIcon { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.15); opacity: 1; } }
         
         .click-text { color: #00ff00; font-size: 16px; font-weight: 900; text-transform: uppercase; text-align: center; text-shadow: 0 0 10px rgba(0, 255, 0, 0.5); letter-spacing: 1px; }
-        
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
         
         .slide-caption { position: absolute; bottom: 15px; left: 15px; right: 15px; background: rgba(0, 0, 0, 0.9); padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 900; color: #00ff00; border: 2px solid rgba(0, 255, 0, 0.5); text-align: center; z-index: 10; text-transform: uppercase; letter-spacing: 0.5px; }
         
@@ -127,6 +125,25 @@
         .modal-info { text-align: center; color: #fff; font-size: 14px; line-height: 1.8; padding: 15px; background: rgba(0, 255, 0, 0.05); border-radius: 10px; border: 1px solid rgba(0, 255, 0, 0.3); }
         .modal-info strong { color: #00ff00; font-size: 16px; display: block; margin-bottom: 8px; }
         .modal-verified { display: inline-block; background: #00ff00; color: #000; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 900; margin-top: 8px; }
+        
+        /* POPUP DOWNSELL */
+        .downsell-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); z-index: 9999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(10px); }
+        .downsell-overlay.active { display: flex; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .downsell-content { max-width: 500px; width: 100%; background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%); border: 3px solid #ff3333; border-radius: 16px; padding: 30px; position: relative; animation: slideUp 0.4s; box-shadow: 0 0 50px rgba(255, 51, 51, 0.5); }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .downsell-close { position: absolute; top: 10px; right: 20px; font-size: 30px; color: #999; cursor: pointer; line-height: 1; transition: all 0.3s; }
+        .downsell-close:hover { color: #ff3333; transform: rotate(90deg); }
+        
+        .downsell-title { color: #ff3333; font-size: 24px; font-weight: 900; text-align: center; margin-bottom: 15px; text-transform: uppercase; animation: pulse 2s infinite; }
+        .downsell-subtitle { color: #fff; font-size: 16px; text-align: center; margin-bottom: 20px; line-height: 1.5; }
+        .downsell-price-old { font-size: 18px; color: #999; text-decoration: line-through; text-align: center; margin-bottom: 5px; }
+        .downsell-price-new { font-size: 56px; font-weight: 900; color: #00ff00; text-align: center; margin-bottom: 15px; line-height: 1; }
+        .downsell-disclaimer { font-size: 13px; color: #ccc; text-align: center; margin-bottom: 20px; }
+        .downsell-btn { width: 100%; background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%); color: #000; font-size: 20px; font-weight: 900; padding: 20px; border: none; border-radius: 12px; text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 30px rgba(0, 255, 0, 0.5); animation: pulse 2s infinite; }
+        .downsell-btn:hover { transform: scale(1.02); }
     </style>
 </head>
 <body>
@@ -245,77 +262,56 @@
             </div>
         </div>
 
-        <!-- TELA 4: OFERTA -->
+        <!-- TELA 4: OFERTA PRINCIPAL (ULTRA CLEAN) -->
         <div id="screen-4" class="screen">
             <div class="card">
                 <div class="badge" style="display: block; text-align: center;">🔥 ACESSO LIBERADO</div>
                 
-                <h1 class="headline" style="text-align: center; font-size: 28px;">Transforme Seu Resultado em Realidade!</h1>
+                <h1 class="headline" style="text-align: center; font-size: 28px;">Transforme Seu Resultado em Realidade</h1>
                 
                 <div class="price-box">
-                    <div class="old-price" style="font-size: 16px;">De R$ 97,00</div>
-                    <div class="new-price" style="font-size: 64px; line-height: 1;">R$ 12,90</div>
-                    <div class="economy" style="font-size: 15px;">💰 Você economiza R$ 84,10 (87% OFF)</div>
+                    <div class="old-price" style="font-size: 18px; color: #999; text-decoration: line-through; margin-bottom: 8px;">De R$ 47,00 por apenas</div>
+                    <div class="new-price" style="font-size: 48px; line-height: 1; color: #00ff00; font-weight: 900; margin-bottom: 15px;">R$ 12,90</div>
+                    
+                    <!-- URGÊNCIA -->
+                    <div style="background: linear-gradient(135deg, #ff3333 0%, #cc0000 100%); border: 2px solid #ff6666; padding: 12px 20px; border-radius: 10px; text-align: center; animation: pulse 2s infinite;">
+                        <div style="font-size: 16px; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 1px;">
+                            ⚠️ SÓ HOJE - ÚLTIMAS 47 VAGAS
+                        </div>
+                        <div style="font-size: 11px; color: #ffcccc; margin-top: 5px;">
+                            Depois volta pra R$ 47,00
+                        </div>
+                    </div>
                 </div>
                 
-                <div style="margin: 30px 0;">
+                <div style="margin: 25px 0;">
                     <div class="benefit"><span>✓</span> Aumento permanente 3-7cm</div>
                     <div class="benefit"><span>✓</span> Resultados em 30 dias</div>
                     <div class="benefit"><span>✓</span> Controle total da ejaculação</div>
                     <div class="benefit"><span>✓</span> Sem cirurgias ou aparelhos</div>
-                    <div class="benefit"><span>✓</span> Aplicativo Exclusivo</div>
+                    <div class="benefit"><span>✓</span> Bônus exclusivos inclusos</div>
                 </div>
                 
-                <!-- CARROSSEL ANTES/DEPOIS - VERSÃO 2 MELHORADA: UM CLIQUE LIBERA TODAS -->
-                <div class="carousel-container">
-                    <div class="carousel-title">📸 RESULTADOS REAIS VERIFICADOS</div>
-                    <div id="unlock-message" style="text-align: center; color: #00ff00; font-size: 14px; font-weight: 900; margin-bottom: 15px; animation: pulse 2s infinite;">
-                        👆 TOQUE PARA DESBLOQUEAR AS 3 FOTOS
-                    </div>
-                    <div class="carousel" id="results-carousel">
-                        <div class="slide active">
-                            <div class="blurred-container" onclick="unlockAllPhotos()">
-                                <img class="carousel-img" src="https://i.ibb.co/YFjPy3zS/mea-Saa-Tba-Aaaaamh-D-i-LJzfk9u2-QO-ZC1.jpg" alt="Resultado verificado" style="filter: blur(20px); transition: filter 0.8s ease;">
-                                <div class="click-overlay unlock-overlay">
-                                    <div class="click-icon">🔓</div>
-                                    <div class="click-text">Toque para desbloquear</div>
-                                </div>
-                            </div>
-                            <div class="slide-caption">PACIENTE M. SOUZA: +5.8cm CONFIRMADO</div>
-                        </div>
-                        <div class="slide">
-                            <div class="blurred-container" onclick="unlockAllPhotos()">
-                                <img class="carousel-img" src="https://i.ibb.co/v6cyDsyd/55db78-0079baf30d6c485581fa2291d62c7d25-mv2.avif" alt="Resultado verificado" style="filter: blur(20px); transition: filter 0.8s ease;">
-                                <div class="click-overlay unlock-overlay">
-                                    <div class="click-icon">🔓</div>
-                                    <div class="click-text">Toque para desbloquear</div>
-                                </div>
-                            </div>
-                            <div class="slide-caption">PACIENTE R. OLIVEIRA: +4.9cm CONFIRMADO</div>
-                        </div>
-                        <div class="slide">
-                            <div class="blurred-container" onclick="unlockAllPhotos()">
-                                <img class="carousel-img" src="https://i.ibb.co/JRStgT6L/Whats-App-Image-2024-12-18-at-15-11-46-rcl53qv1p0gr5s3fzr30gvvchnyybvpbhth13gqhj4.jpg" alt="Resultado verificado" style="filter: blur(20px); transition: filter 0.8s ease;">
-                                <div class="click-overlay unlock-overlay">
-                                    <div class="click-icon">🔓</div>
-                                    <div class="click-text">Toque para desbloquear</div>
-                                </div>
-                            </div>
-                            <div class="slide-caption">PACIENTE L. SANTOS: +6.2cm CONFIRMADO</div>
-                        </div>
-                    </div>
-                    <div id="unlocked-message" style="display: none; text-align: center; color: #00ff00; font-size: 12px; font-weight: 700; margin-top: 10px;">
-                        ✅ FOTOS DESBLOQUEADAS - Carrossel rodando
-                    </div>
-                </div>
-                
-                <div class="guarantee" style="font-size: 14px; padding: 12px;">
+                <div class="guarantee" style="font-size: 13px; padding: 10px; margin-bottom: 15px;">
                     🛡️ GARANTIA INCONDICIONAL DE 30 DIAS
                 </div>
                 
-                <button class="btn" onclick="checkout()" style="font-size: 19px; padding: 22px;">💳 GARANTIR ACESSO POR R$ 12,90</button>
+                <button class="btn" onclick="checkout()" style="font-size: 20px; padding: 25px; background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%); color: #000; font-weight: 900; text-transform: uppercase; box-shadow: 0 10px 30px rgba(0, 255, 0, 0.4); animation: pulse 2s infinite;">
+                    💳 GARANTIR MINHA VAGA POR R$ 12,90
+                </button>
                 
-                <div class="testimonials-carousel" id="testimonials">
+                <div style="text-align: center; margin-top: 12px; font-size: 12px; color: #ff3333; font-weight: 700;">
+                    ⏰ Oferta expira em breve
+                </div>
+                
+                <!-- LINK DOWNSELL (COM DESTAQUE SUTIL) -->
+                <div style="text-align: center; margin-top: 25px; padding: 15px; background: rgba(255, 51, 51, 0.08); border: 1px solid rgba(255, 51, 51, 0.3); border-radius: 10px;">
+                    <a href="#" onclick="showDownsell(); return false;" style="color: #ff8888; font-size: 14px; text-decoration: underline; font-weight: 600; transition: all 0.3s;">
+                        😔 Não tenho interesse agora
+                    </a>
+                </div>
+                
+                <!-- DEPOIMENTOS ROTATIVOS (DEPOIS DO LINK) -->
                     <div class="testimonial-slide active">
                         <div class="testimonial-quote">💬 "Aumentei 3cm em 6 semanas. Melhor investimento!"</div>
                         <div class="testimonial-author">@marcos_sp, 27 anos</div>
@@ -340,6 +336,59 @@
                 
                 <div class="security-footer" style="margin-top: 12px;">
                     🔒 Pagamento 100% seguro e discreto
+                </div>
+            </div>
+        </div>
+
+        <!-- TELA DOWNSELL (POPUP) -->
+        <div id="downsell-popup" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); z-index: 9999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(10px);">
+            <div style="max-width: 500px; width: 100%; background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%); border: 3px solid #ff3333; border-radius: 16px; padding: 30px; position: relative; animation: slideUp 0.4s; box-shadow: 0 0 50px rgba(255, 51, 51, 0.5);">
+                
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 32px; margin-bottom: 10px;">⚠️</div>
+                    <h2 style="color: #ff3333; font-size: 24px; font-weight: 900; margin-bottom: 10px;">ESPERA!</h2>
+                    <p style="color: #ccc; font-size: 16px; line-height: 1.5;">
+                        Última chance antes de sair...<br>
+                        Tenho uma condição ÚNICA pra você!
+                    </p>
+                </div>
+                
+                <div style="background: rgba(255, 51, 51, 0.1); border: 2px solid #ff3333; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center;">
+                    <div style="color: #999; font-size: 14px; text-decoration: line-through; margin-bottom: 5px;">
+                        De R$ 12,90 por apenas
+                    </div>
+                    <div style="font-size: 48px; font-weight: 900; color: #00ff00; line-height: 1; margin: 10px 0;">
+                        R$ 8,90
+                    </div>
+                    <div style="color: #00ff00; font-size: 14px; font-weight: 700;">
+                        💰 Economize R$ 4,00 extras
+                    </div>
+                </div>
+                
+                <div style="background: rgba(0, 0, 0, 0.5); padding: 15px; border-radius: 10px; margin: 20px 0;">
+                    <div style="color: #fff; font-size: 14px; margin-bottom: 10px; font-weight: 700;">
+                        ✓ MESMOS resultados (3-7cm)
+                    </div>
+                    <div style="color: #fff; font-size: 14px; margin-bottom: 10px; font-weight: 700;">
+                        ✓ MESMA garantia de 30 dias
+                    </div>
+                    <div style="color: #fff; font-size: 14px; font-weight: 700;">
+                        ✓ Só por HOJE - Não vai aparecer de novo
+                    </div>
+                </div>
+                
+                <button onclick="checkoutDownsell()" style="width: 100%; background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%); color: #000; border: none; padding: 20px; border-radius: 12px; font-size: 18px; font-weight: 900; cursor: pointer; text-transform: uppercase; box-shadow: 0 10px 30px rgba(0, 255, 0, 0.4); margin-bottom: 15px;">
+                    💳 SIM, QUERO POR R$ 8,90!
+                </button>
+                
+                <div style="text-align: center;">
+                    <a href="#" onclick="closeDownsell(); return false;" style="color: #666; font-size: 13px; text-decoration: none;">
+                        Não, prefiro sair mesmo
+                    </a>
+                </div>
+                
+                <div style="text-align: center; margin-top: 15px; font-size: 11px; color: #ff3333; font-weight: 700;">
+                    ⏰ Esta oferta expira em 5 minutos
                 </div>
             </div>
         </div>
@@ -558,8 +607,8 @@
             // Inicia carrossel de depoimentos
             startTestimonialsCarousel();
             
-            // Inicia carrossel de antes/depois
-            startResultsCarousel();
+            // Inicia carrossel de depoimentos texto
+            startTestimonialsCarousel();
         };
 
         function startTestimonialsCarousel() {
@@ -573,61 +622,27 @@
             }, 4000); // Troca a cada 4 segundos
         }
 
-        function startResultsCarousel() {
-            const slides = document.querySelectorAll('#results-carousel .slide');
-            let currentSlide = 0;
-            
-            setInterval(() => {
-                slides[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add('active');
-            }, 2500); // 2.5 segundos - sweet spot entre rápido e visível
-        }
-
-        // Função que DESBLOQUEIA TODAS as fotos com 1 clique
-        let photosUnlocked = false;
-        
-        window.unlockAllPhotos = function() {
-            if (photosUnlocked) return; // Já desbloqueou, não faz nada
-            
-            photosUnlocked = true;
-            
-            // Pega todas as imagens do carrossel
-            const allImages = document.querySelectorAll('.carousel-img');
-            const allOverlays = document.querySelectorAll('.unlock-overlay');
-            const unlockMessage = document.getElementById('unlock-message');
-            const unlockedMessage = document.getElementById('unlocked-message');
-            
-            // Remove blur de TODAS as fotos com animação
-            allImages.forEach((img, index) => {
-                setTimeout(() => {
-                    img.style.filter = 'blur(0px)';
-                    img.style.transform = 'scale(1.02)';
-                }, index * 200); // Efeito cascata suave
-            });
-            
-            // Esconde todos os overlays
-            allOverlays.forEach((overlay, index) => {
-                setTimeout(() => {
-                    overlay.style.opacity = '0';
-                    setTimeout(() => {
-                        overlay.style.display = 'none';
-                    }, 300);
-                }, index * 200);
-            });
-            
-            // Atualiza mensagens
-            unlockMessage.style.display = 'none';
-            unlockedMessage.style.display = 'block';
-            
-            // Tracking
-            track('all_photos_unlocked', { timestamp: Date.now() });
-        };
-
         window.checkout = function() {
             track('checkout');
             window.location.href = `https://pay.wiapy.com/elbyXqblP2?utm_source=${sid}&external_id=${sid}`;
         };
+
+        // FUNÇÕES DOWNSELL
+        window.showDownsell = function() {
+            track('downsell_viewed');
+            document.getElementById('downsell-popup').style.display = 'flex';
+        };
+
+        window.closeDownsell = function() {
+            track('downsell_rejected');
+            document.getElementById('downsell-popup').style.display = 'none';
+        };
+
+        window.checkoutDownsell = function() {
+            track('checkout_downsell');
+            window.location.href = `https://pay.wiapy.com/fsx2reTay8?utm_source=${sid}&external_id=${sid}`;
+        };
+
 
         function showScreen(num) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
